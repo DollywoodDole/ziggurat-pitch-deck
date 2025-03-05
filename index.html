@@ -133,20 +133,17 @@
             position: fixed;
             top: 20px;
             left: 40px;
-            font-size: 2em;
-            color: #f9d423;
-            font-weight: 700;
-            font-family: 'Cinzel', serif;
-            text-shadow: 0 0 10px rgba(249, 212, 35, 0.3);
             z-index: 10;
         }
+        .logo svg { width: 50px; height: 50px; }
         .ticker {
             position: fixed;
             top: 20px;
             right: 40px;
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: #00d4ff;
             z-index: 10;
+            font-weight: 500;
         }
         .footer {
             position: fixed;
@@ -182,6 +179,26 @@
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(230, 184, 0, 0.7);
         }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+        .team-member {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            background: #f9d423;
+        }
         @keyframes chartReveal {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
@@ -189,7 +206,7 @@
         @media (max-width: 768px) {
             .slide { padding: 60px; }
             .nav button { font-size: 1.2em; padding: 12px 30px; }
-            .logo { font-size: 1.6em; }
+            .logo svg { width: 40px; height: 40px; }
             .ticker, .footer { font-size: 0.9em; right: 20px; }
             .cta-button { font-size: 1.4em; padding: 15px 40px; }
         }
@@ -198,8 +215,13 @@
 </head>
 <body>
     <canvas id="webglCanvas"></canvas>
-    <div class="logo">Ziggurat</div>
-    <div class="ticker">Market Size: $320M | Funding Goal: $5M | ROI: 5x by 2030</div>
+    <div class="logo">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 80 L50 20 L80 80 L70 80 L60 60 L40 60 L30 80 Z" fill="#f9d423" stroke="#1a2a34" stroke-width="2"/>
+            <rect x="35" y="60" width="30" height="10" fill="#00d4ff"/>
+        </svg>
+    </div>
+    <div class="ticker" id="ticker">Market Size: $320M | Funding Goal: $5M | ROI: 5x by 2030</div>
     <div class="deck">
         <!-- Slide 1: Title -->
         <div class="slide active" id="slide1">
@@ -286,8 +308,31 @@
             <p><span class="highlight">A monumental leap forward.</span></p>
         </div>
 
-        <!-- Slide 8: Execution Blueprint -->
+        <!-- Slide 8: Team -->
         <div class="slide" id="slide8">
+            <h1>The Architects</h1>
+            <p>Our visionary leadership:</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f9d423'/%3E%3C/svg%3E'" alt="CEO">
+                    <p>Dr. Jane Doe</p>
+                    <p>CEO | PhD, MIT | ex-Google AI</p>
+                </div>
+                <div class="team-member">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f9d423'/%3E%3C/svg%3E'" alt="CTO">
+                    <p>John Smith</p>
+                    <p>CTO | Stanford CS | ex-Nutrien</p>
+                </div>
+                <div class="team-member">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f9d423'/%3E%3C/svg%3E'" alt="CFO">
+                    <p>Emily Chen</p>
+                    <p>CFO | Wharton MBA | ex-Goldman Sachs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Execution Blueprint -->
+        <div class="slide" id="slide9">
             <h1>Trajectory to Triumph</h1>
             <p>A disciplined ascent:</p>
             <ul>
@@ -298,8 +343,8 @@
             </ul>
         </div>
 
-        <!-- Slide 9: Investment Thesis -->
-        <div class="slide" id="slide9">
+        <!-- Slide 10: Investment Thesis -->
+        <div class="slide" id="slide10">
             <h1>Capital Inflection</h1>
             <p><span class="highlight">$5M seed round</span> catalyzes:</p>
             <ul>
@@ -314,8 +359,8 @@
             <p><span class="highlight">5x ROI by 2030</span>.</p>
         </div>
 
-        <!-- Slide 10: Vision -->
-        <div class="slide" id="slide10">
+        <!-- Slide 11: Vision -->
+        <div class="slide" id="slide11">
             <h1>The Apex Legacy</h1>
             <p>Ziggurat redefines Saskatoon:</p>
             <ul>
@@ -344,6 +389,7 @@
         <div class="dot" onclick="goToSlide(8)"></div>
         <div class="dot" onclick="goToSlide(9)"></div>
         <div class="dot" onclick="goToSlide(10)"></div>
+        <div class="dot" onclick="goToSlide(11)"></div>
     </div>
     <div class="footer">
         <a href="mailto:invest@ziggurat.io">invest@ziggurat.io</a> | +1-306-978-0100<br>
@@ -354,7 +400,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let currentSlide = 1;
-        const totalSlides = 10;
+        const totalSlides = 11;
 
         function showSlide(n) {
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
@@ -362,7 +408,7 @@
             document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
             document.querySelectorAll('.dot-nav .dot')[n - 1].classList.add('active');
             currentSlide = n;
-            if (n === 9) setTimeout(drawChart, 600);
+            if (n === 10) setTimeout(drawChart, 600);
         }
 
         function nextSlide() {
@@ -384,7 +430,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshPhongMaterial({ color: 0xf9d423, transparent: true, opacity: 0.3 });
+        const material = new THREE.MeshPhongMaterial({ color: 0xf9d423, transparent: true, opacity: 0.3, wireframe: true });
         const zigguratSteps = [];
         for (let i = 5; i > 0; i--) {
             const step = new THREE.Mesh(geometry, material);
@@ -403,6 +449,7 @@
             requestAnimationFrame(animateZiggurat);
             zigguratSteps.forEach((step, i) => {
                 step.rotation.y += 0.01 * (i + 1) * 0.5;
+                step.rotation.x += 0.005;
             });
             renderer.render(scene, camera);
         }
@@ -414,7 +461,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Chart for Slide 9
+        // Chart for Slide 10
         function drawChart() {
             const ctx = document.getElementById('roiChart').getContext('2d');
             new Chart(ctx, {
@@ -447,13 +494,21 @@
             });
         }
 
+        // Live Ticker Simulation
+        const ticker = document.getElementById('ticker');
+        let marketSize = 320;
+        setInterval(() => {
+            marketSize += 0.1;
+            ticker.textContent = `Market Size: $${marketSize.toFixed(1)}M | Funding Goal: $5M | ROI: 5x by 2030`;
+        }, 5000);
+
         // Keyboard Navigation
         document.addEventListener('keydown', e => {
             if (e.key === 'ArrowRight') nextSlide();
             if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        console.log("Ziggurat Pitch Deck v5: Maximum Potential Unleashed.");
+        console.log("Ziggurat Pitch Deck v6: Beyond Maximum Potential—Funding Secured.");
     </script>
 </body>
 </html>
