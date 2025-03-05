@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziggurat: Powering Saskatoon’s $15B Future</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(145deg, #1c2526, #2e4757);
+            color: #f8f8f8;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        .deck {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px;
+            position: relative;
+        }
+        .slide {
+            display: none;
+            min-height: 85vh;
+            padding: 70px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.9s ease;
+        }
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h1 {
+            font-size: 5em;
+            color: #ffca28;
+            text-shadow: 0 0 20px rgba(255, 202, 40, 0.8);
+            margin-bottom: 25px;
+            letter-spacing: 4px;
+        }
+        h2 {
+            font-size: 3em;
+            color: #00acc1;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p, ul {
+            font-size: 1.5em;
+            max-width: 1100px;
+            margin: 20px auto;
+        }
+        ul { list-style: none; padding-left: 0; }
+        ul li { margin: 10px 0; }
+        ul li:before { content: "🔥 "; color: #ffca28; }
+        .highlight {
+            color: #ffca28;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 202, 40, 0.6);
+        }
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+        .nav button {
+            padding: 15px 35px;
+            background: #00acc1;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 172, 193, 0.6);
+        }
+        .nav button:hover {
+            background: #00838f;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 131, 143, 0.8);
+        }
+        .dot-nav {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .dot {
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        .dot.active {
+            opacity: 1;
+            background: #ffca28;
+            transform: scale(1.6);
+        }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; }
+        .chart-container {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5em; }
+            h2 { font-size: 2.2em; }
+            p, ul { font-size: 1.2em; }
+            .slide { padding: 40px; }
+            .nav button { font-size: 1.1em; padding: 12px 25px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+    <div class="deck">
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide1">
+            <h1>Ziggurat</h1>
+            <h2>Powering Saskatoon’s $15B Future</h2>
+            <p>Forging Agriculture, Mining, Energy, Manufacturing, Life Sciences & Tech into the <span class="highlight">8th Wonder of the World</span>.</p>
+            <p>The heart of Science City beats here.</p>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide" id="slide2">
+            <h1>The Divide</h1>
+            <p>Saskatoon’s sectors are siloed, costing <span class="highlight">$1.2B yearly</span>:</p>
+            <ul>
+                <li>Agriculture: $11B exports, tech adoption lags.</li>
+                <li>Mining: $500M inefficiencies in global potash lead.</li>
+                <li>Energy: $2B uranium, smart grids untapped.</li>
+                <li>Manufacturing: 45% growth, automation slow.</li>
+                <li>Life Sciences: VIDO’s breakthroughs unscaled.</li>
+                <li>Tech: 108% job surge, ecosystem fragmented.</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: The Opportunity -->
+        <div class="slide" id="slide3">
+            <h1>The Surge</h1>
+            <p>Saskatoon’s potential is electric:</p>
+            <ul>
+                <li><span class="highlight">$4.7B tech GDP</span>, 160+ firms today.</li>
+                <li>$14B tech target by 2030 (Innovation SK).</li>
+                <li><span class="highlight">$3.5B efficiency unlock</span> with integration.</li>
+                <li><span class="highlight">$600M investment</span> on the horizon.</li>
+            </ul>
+            <p>Ziggurat channels this power.</p>
+        </div>
+
+        <!-- Slide 4: Our Solution -->
+        <div class="slide" id="slide4">
+            <h1>The Core</h1>
+            <p>Ziggurat: The platform that unites:</p>
+            <ul>
+                <li>Live Dashboards: Data from all 6 sectors.</li>
+                <li>Synergy Hub: $200M in cross-sector deals.</li>
+                <li>Smart City: Optimize resources citywide.</li>
+                <li>AI + Blockchain: Predict, secure, scale.</li>
+            </ul>
+            <p><span class="highlight">The heart of Saskatoon’s future.</span></p>
+        </div>
+
+        <!-- Slide 5: Market Size -->
+        <div class="slide" id="slide5">
+            <h1>The Beat</h1>
+            <p>A <span class="highlight">$320M annual market</span> pulses in Saskatoon:</p>
+            <ul>
+                <li>Agriculture: $55M tech spend, growing 8%.</li>
+                <li>Mining: $110M digital tools, Nutrien-led.</li>
+                <li>Energy: $35M cleantech demand.</li>
+                <li>Manufacturing: $45M IoT potential.</li>
+                <li>Life Sciences: $25M R&D investment.</li>
+                <li>Tech: $50M SaaS, 10% yearly rise.</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Business Model -->
+        <div class="slide" id="slide6">
+            <h1>The Rhythm</h1>
+            <p>Cash flow that scales:</p>
+            <ul>
+                <li>Subscriptions: $12K-$60K/year per client.</li>
+                <li>Data Sales: $6M/year to investors.</li>
+                <li>Deals: 10% of $75M partnerships.</li>
+            </ul>
+            <p><span class="highlight">Year 1: $2.5M. Year 3: $12M. Year 5: $30M.</span></p>
+        </div>
+
+        <!-- Slide 7: Competitive Edge -->
+        <div class="slide" id="slide7">
+            <h1>The Crown</h1>
+            <p>Ziggurat stands above:</p>
+            <ul>
+                <li>Local Roots: Saskatoon-first design.</li>
+                <li>Full Spectrum: 6 sectors, unmatched.</li>
+                <li>Tech Edge: AI-driven, blockchain-secure.</li>
+            </ul>
+            <p><span class="highlight">No rival builds this wonder.</span></p>
+        </div>
+
+        <!-- Slide 8: Roadmap -->
+        <div class="slide" id="slide8">
+            <h1>The Ascent</h1>
+            <p>Steps to the 8th Wonder:</p>
+            <ul>
+                <li>6 Months: $1.2M pilot, 15 clients.</li>
+                <li>1 Year: $3M scale, 60 clients.</li>
+                <li>2 Years: $5M rollout, 200 clients.</li>
+                <li>5 Years: <span class="highlight">$30M revenue</span>, global reach.</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Financial Ask -->
+        <div class="slide" id="slide9">
+            <h1>The Spark</h1>
+            <p><span class="highlight">$5M seed round</span> to ignite:</p>
+            <ul>
+                <li>$2M: Platform dev (AI, blockchain).</li>
+                <li>$1.8M: Sales to 200+ firms.</li>
+                <li>$1M: Team (12 devs, 5 biz).</li>
+                <li>$0.2M: Partners (GIFS, Co.Labs).</li>
+            </ul>
+            <div class="chart-container">
+                <canvas id="roiChart"></canvas>
+            </div>
+            <p><span class="highlight">5x ROI by 2030</span>.</p>
+        </div>
+
+        <!-- Slide 10: Vision -->
+        <div class="slide" id="slide10">
+            <h1>The Pinnacle</h1>
+            <p>Ziggurat: Saskatoon’s beating heart:</p>
+            <ul>
+                <li><span class="highlight">$3.5B economic lift</span>.</li>
+                <li>600 tech jobs by 2030.</li>
+                <li>$1.2B in global exports.</li>
+            </ul>
+            <p><span class="highlight">Fund the 8th Wonder today.</span></p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button onclick="prevSlide()">Back</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+    <div class="dot-nav">
+        <div class="dot active" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
+        <div class="dot" onclick="goToSlide(5)"></div>
+        <div class="dot" onclick="goToSlide(6)"></div>
+        <div class="dot" onclick="goToSlide(7)"></div>
+        <div class="dot" onclick="goToSlide(8)"></div>
+        <div class="dot" onclick="goToSlide(9)"></div>
+        <div class="dot" onclick="goToSlide(10)"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+
+        function showSlide(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide${n}`).classList.add('active');
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.dot-nav .dot')[n - 1].classList.add('active');
+            currentSlide = n;
+            if (n === 9) drawChart();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide < totalSlides ? currentSlide + 1 : 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide > 1 ? currentSlide - 1 : totalSlides);
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Chart for Slide 9
+        function drawChart() {
+            const ctx = document.getElementById('roiChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2025', '2026', '2027', '2028', '2030'],
+                    datasets: [{
+                        label: 'Revenue ($M)',
+                        data: [2.5, 5, 12, 20, 30],
+                        borderColor: '#ffca28',
+                        backgroundColor: 'rgba(255, 202, 40, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { beginAtZero: true, max: 35, title: { display: true, text: 'Revenue ($M)', color: '#fff' } },
+                        x: { title: { display: true, text: 'Year', color: '#fff' } }
+                    },
+                    plugins: { legend: { labels: { color: '#fff' } } }
+                }
+            });
+        }
+
+        // Particle Background
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 1;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 202, 40, 0.7)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 120; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        initParticles();
+        animate();
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        console.log("Ziggurat: Ready to Secure $5M and Build Saskatoon’s Wonder.");
+    </script>
+</body>
+</html>
