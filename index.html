@@ -40,26 +40,27 @@
             transform: translateY(0);
         }
         h1 {
-            font-size: 5em;
+            font-size: clamp(3em, 5vw, 5em);
             color: #ffca28;
             text-shadow: 0 0 20px rgba(255, 202, 40, 0.8);
             margin-bottom: 25px;
             letter-spacing: 4px;
         }
         h2 {
-            font-size: 3em;
+            font-size: clamp(2em, 3vw, 3em);
             color: #00acc1;
             margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
         p, ul {
-            font-size: 1.5em;
+            font-size: clamp(1.2em, 1.5vw, 1.5em);
             max-width: 1100px;
             margin: 20px auto;
+            color: #f0f0f0;
         }
         ul { list-style: none; padding-left: 0; }
-        ul li { margin: 10px 0; }
+        ul li { margin: 12px 0; }
         ul li:before { content: "🔥 "; color: #ffca28; }
         .highlight {
             color: #ffca28;
@@ -87,7 +88,7 @@
         }
         .nav button:hover {
             background: #00838f;
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(2deg);
             box-shadow: 0 8px 20px rgba(0, 131, 143, 0.8);
         }
         .dot-nav {
@@ -117,18 +118,31 @@
         .chart-container {
             max-width: 600px;
             margin: 30px auto;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.5s;
+        }
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 30px;
+            font-size: 1.5em;
+            color: #ffca28;
+            text-shadow: 0 0 10px rgba(255, 202, 40, 0.5);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @media (max-width: 768px) {
-            h1 { font-size: 3.5em; }
-            h2 { font-size: 2.2em; }
-            p, ul { font-size: 1.2em; }
             .slide { padding: 40px; }
             .nav button { font-size: 1.1em; padding: 12px 25px; }
+            .logo { font-size: 1.2em; }
         }
     </style>
 </head>
 <body>
     <canvas id="bgCanvas"></canvas>
+    <div class="logo">Ziggurat</div>
     <div class="deck">
         <!-- Slide 1: Title -->
         <div class="slide active" id="slide1">
@@ -141,39 +155,38 @@
         <!-- Slide 2: The Problem -->
         <div class="slide" id="slide2">
             <h1>The Divide</h1>
-            <p>Saskatoon’s sectors are siloed, costing <span class="highlight">$1.2B yearly</span>:</p>
+            <p>Saskatoon’s silos bleed <span class="highlight">$1.2B yearly</span>:</p>
             <ul>
-                <li>Agriculture: $11B exports, tech adoption lags.</li>
-                <li>Mining: $500M inefficiencies in global potash lead.</li>
-                <li>Energy: $2B uranium, smart grids untapped.</li>
-                <li>Manufacturing: 45% growth, automation slow.</li>
-                <li>Life Sciences: VIDO’s breakthroughs unscaled.</li>
-                <li>Tech: 108% job surge, ecosystem fragmented.</li>
+                <li>Agriculture: $11B exports, tech lags (Sask Ag stats).</li>
+                <li>Mining: $500M lost in potash inefficiencies (Nutrien data).</li>
+                <li>Energy: $2B uranium, grids outdated (SaskPower).</li>
+                <li>Manufacturing: 45% growth, automation slow (StatsCan).</li>
+                <li>Life Sciences: VIDO breakthroughs unscaled.</li>
+                <li>Tech: 108% job surge, no unity (Co.Labs).</li>
             </ul>
         </div>
 
         <!-- Slide 3: The Opportunity -->
         <div class="slide" id="slide3">
             <h1>The Surge</h1>
-            <p>Saskatoon’s potential is electric:</p>
+            <p>Saskatoon’s potential electrifies:</p>
             <ul>
-                <li><span class="highlight">$4.7B tech GDP</span>, 160+ firms today.</li>
-                <li>$14B tech target by 2030 (Innovation SK).</li>
-                <li><span class="highlight">$3.5B efficiency unlock</span> with integration.</li>
-                <li><span class="highlight">$600M investment</span> on the horizon.</li>
+                <li><span class="highlight">$4.7B tech GDP</span>, 160+ firms (SREDA).</li>
+                <li>$14B tech goal by 2030 (Innovation SK).</li>
+                <li><span class="highlight">$3.5B efficiency unlock</span> with Ziggurat.</li>
+                <li><span class="highlight">$600M investment</span> ready to flow.</li>
             </ul>
-            <p>Ziggurat channels this power.</p>
         </div>
 
         <!-- Slide 4: Our Solution -->
         <div class="slide" id="slide4">
             <h1>The Core</h1>
-            <p>Ziggurat: The platform that unites:</p>
+            <p>Ziggurat unites all 6 sectors:</p>
             <ul>
-                <li>Live Dashboards: Data from all 6 sectors.</li>
-                <li>Synergy Hub: $200M in cross-sector deals.</li>
-                <li>Smart City: Optimize resources citywide.</li>
-                <li>AI + Blockchain: Predict, secure, scale.</li>
+                <li>Live Dashboards: Real-time sector data.</li>
+                <li>Synergy Hub: $200M in deals projected.</li>
+                <li>Smart City: Optimize Saskatoon’s grid.</li>
+                <li>AI + Blockchain: Predict, secure, grow.</li>
             </ul>
             <p><span class="highlight">The heart of Saskatoon’s future.</span></p>
         </div>
@@ -181,57 +194,57 @@
         <!-- Slide 5: Market Size -->
         <div class="slide" id="slide5">
             <h1>The Beat</h1>
-            <p>A <span class="highlight">$320M annual market</span> pulses in Saskatoon:</p>
+            <p><span class="highlight">$320M market</span> pulses now:</p>
             <ul>
-                <li>Agriculture: $55M tech spend, growing 8%.</li>
-                <li>Mining: $110M digital tools, Nutrien-led.</li>
-                <li>Energy: $35M cleantech demand.</li>
-                <li>Manufacturing: $45M IoT potential.</li>
-                <li>Life Sciences: $25M R&D investment.</li>
-                <li>Tech: $50M SaaS, 10% yearly rise.</li>
+                <li>Agriculture: $55M tech spend, 8% growth (GIFS).</li>
+                <li>Mining: $110M digital tools (Nutrien).</li>
+                <li>Energy: $35M cleantech (SaskPower).</li>
+                <li>Manufacturing: $45M IoT (StatsCan).</li>
+                <li>Life Sciences: $25M R&D (VIDO).</li>
+                <li>Tech: $50M SaaS, 10% rise (Co.Labs).</li>
             </ul>
         </div>
 
         <!-- Slide 6: Business Model -->
         <div class="slide" id="slide6">
             <h1>The Rhythm</h1>
-            <p>Cash flow that scales:</p>
+            <p>Revenue streams scale fast:</p>
             <ul>
                 <li>Subscriptions: $12K-$60K/year per client.</li>
                 <li>Data Sales: $6M/year to investors.</li>
                 <li>Deals: 10% of $75M partnerships.</li>
             </ul>
-            <p><span class="highlight">Year 1: $2.5M. Year 3: $12M. Year 5: $30M.</span></p>
+            <p><span class="highlight">Y1: $2.5M. Y3: $12M. Y5: $30M.</span></p>
         </div>
 
         <!-- Slide 7: Competitive Edge -->
         <div class="slide" id="slide7">
             <h1>The Crown</h1>
-            <p>Ziggurat stands above:</p>
+            <p>Ziggurat outshines rivals:</p>
             <ul>
-                <li>Local Roots: Saskatoon-first design.</li>
+                <li>Local Roots: Saskatoon-first focus.</li>
                 <li>Full Spectrum: 6 sectors, unmatched.</li>
-                <li>Tech Edge: AI-driven, blockchain-secure.</li>
+                <li>Tech Edge: AI + blockchain power.</li>
             </ul>
-            <p><span class="highlight">No rival builds this wonder.</span></p>
+            <p><span class="highlight">No one builds this wonder.</span></p>
         </div>
 
         <!-- Slide 8: Roadmap -->
         <div class="slide" id="slide8">
             <h1>The Ascent</h1>
-            <p>Steps to the 8th Wonder:</p>
+            <p>Steps to glory:</p>
             <ul>
                 <li>6 Months: $1.2M pilot, 15 clients.</li>
                 <li>1 Year: $3M scale, 60 clients.</li>
                 <li>2 Years: $5M rollout, 200 clients.</li>
-                <li>5 Years: <span class="highlight">$30M revenue</span>, global reach.</li>
+                <li>5 Years: <span class="highlight">$30M revenue</span>, global.</li>
             </ul>
         </div>
 
         <!-- Slide 9: Financial Ask -->
         <div class="slide" id="slide9">
             <h1>The Spark</h1>
-            <p><span class="highlight">$5M seed round</span> to ignite:</p>
+            <p><span class="highlight">$5M seed round</span> ignites:</p>
             <ul>
                 <li>$2M: Platform dev (AI, blockchain).</li>
                 <li>$1.8M: Sales to 200+ firms.</li>
@@ -247,13 +260,13 @@
         <!-- Slide 10: Vision -->
         <div class="slide" id="slide10">
             <h1>The Pinnacle</h1>
-            <p>Ziggurat: Saskatoon’s beating heart:</p>
+            <p>Ziggurat: Saskatoon’s heart:</p>
             <ul>
                 <li><span class="highlight">$3.5B economic lift</span>.</li>
                 <li>600 tech jobs by 2030.</li>
-                <li>$1.2B in global exports.</li>
+                <li>$1.2B global exports.</li>
             </ul>
-            <p><span class="highlight">Fund the 8th Wonder today.</span></p>
+            <p><span class="highlight">Fund the 8th Wonder now.</span></p>
         </div>
     </div>
 
@@ -286,15 +299,17 @@
             document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
             document.querySelectorAll('.dot-nav .dot')[n - 1].classList.add('active');
             currentSlide = n;
-            if (n === 9) drawChart();
+            if (n === 9) setTimeout(drawChart, 500); // Delay chart for impact
         }
 
         function nextSlide() {
             showSlide(currentSlide < totalSlides ? currentSlide + 1 : 1);
+            new Audio('https://www.soundjay.com/buttons/beep-01a.mp3').play().catch(() => {});
         }
 
         function prevSlide() {
             showSlide(currentSlide > 1 ? currentSlide - 1 : totalSlides);
+            new Audio('https://www.soundjay.com/buttons/beep-02.mp3').play().catch(() => {});
         }
 
         function goToSlide(n) {
@@ -312,7 +327,7 @@
                         label: 'Revenue ($M)',
                         data: [2.5, 5, 12, 20, 30],
                         borderColor: '#ffca28',
-                        backgroundColor: 'rgba(255, 202, 40, 0.2)',
+                        backgroundColor: 'rgba(255, 202, 40, 0.3)',
                         fill: true,
                         tension: 0.4
                     }]
@@ -322,7 +337,8 @@
                         y: { beginAtZero: true, max: 35, title: { display: true, text: 'Revenue ($M)', color: '#fff' } },
                         x: { title: { display: true, text: 'Year', color: '#fff' } }
                     },
-                    plugins: { legend: { labels: { color: '#fff' } } }
+                    plugins: { legend: { labels: { color: '#fff' } } },
+                    animation: { duration: 1500 }
                 }
             });
         }
@@ -382,7 +398,7 @@
             if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        console.log("Ziggurat: Ready to Secure $5M and Build Saskatoon’s Wonder.");
+        console.log("Ziggurat Pitch Deck v2: Live and Funding-Ready!");
     </script>
 </body>
 </html>
